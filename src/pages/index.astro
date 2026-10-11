@@ -12,5 +12,16 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+		<p>GitHub Pages で Cross-Origin-Opener-Policy, Cross-Origin-Embedder-Policy が設定できないため web worker に SharedArrayBuffer を postMessage できないのは本当か確認するためのページ</p>
 	</body>
 </html>
+
+<script>
+	const worker = new Worker(new URL("worker.js", import.meta.url));
+	const memory = new WebAssembly.Memory({
+		initial: 10,
+		maximum: 100,
+		shared: true,
+	});
+	worker.postMessage(memory);
+</script>
